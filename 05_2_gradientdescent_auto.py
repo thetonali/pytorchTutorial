@@ -1,8 +1,10 @@
 import torch
 
 # Here we replace the manually computed gradient with autograd
+# 这里我们用 autograd 替换手动计算的梯度
 
 # Linear regression
+# 线性回归
 # f = w * x 
 
 # here : f = 2 * x
@@ -19,7 +21,7 @@ def forward(x):
 def loss(y, y_pred):
     return ((y_pred - y)**2).mean()
 
-print(f'Prediction before training: f(5) = {forward(5).item():.3f}')
+print(f'Prediction before training: f(5) = {forward(5).item():.3f}') #因为是张量
 
 # Training
 learning_rate = 0.01
@@ -33,14 +35,18 @@ for epoch in range(n_iters):
     l = loss(Y, y_pred)
 
     # calculate gradients = backward pass
+    # 计算梯度=向后传递
     l.backward()
 
     # update weights
     #w.data = w.data - learning_rate * w.grad
+    # 更新权重
+    #w.data = w.data - 学习率 * w.grad
     with torch.no_grad():
         w -= learning_rate * w.grad
     
     # zero the gradients after updating
+    # 更新后将梯度归零
     w.grad.zero_()
 
     if epoch % 10 == 0:
