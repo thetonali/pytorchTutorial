@@ -92,6 +92,7 @@ print(x.size(), y.size(), z.size())
 
 # Numpy
 # Converting a Torch Tensor to a NumPy array and vice versa is very easy
+# 将 Torch 张量转换为 NumPy 数组，反之亦然非常简单
 a = torch.ones(5)
 print(a)
 
@@ -100,7 +101,7 @@ b = a.numpy()
 print(b)
 print(type(b))
 
-# Carful: If the Tensor is on the CPU (not the GPU),
+# Carful: If the Tensor is on the CPU (not the GPU),默认在CPU
 # both objects will share the same memory location, so changing one
 # will also change the other
 a.add_(1)
@@ -126,7 +127,10 @@ if torch.cuda.is_available():
     y = torch.ones_like(x, device=device)  # directly create a tensor on GPU
     x = x.to(device)                       # or just use strings ``.to("cuda")``
     z = x + y
+    print(z)
     # z = z.numpy() # not possible because numpy cannot handle GPU tenors
     # move to CPU again
-    z.to("cpu")       # ``.to`` can also change dtype together!
-    # z = z.numpy()
+    z = z.to("cpu")       # ``.to`` can also change dtype together!
+    print(z)
+    z = z.numpy()
+    print(z)
